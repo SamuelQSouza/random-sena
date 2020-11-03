@@ -4,19 +4,25 @@ import './App.css'
 function App() {
   const [sena, setSena] = useState([])   
 
-  useEffect(() => {
+  useEffect(() => {    
+    handleClick()
+  }, [])
+
+  function geraSena() {
     let aux=[]    
     while(1){
       if(aux.length>=6){break}
       let random = getRandomInt()
       if(!aux.find(e => e == random)){aux.push(random)}
     }
-    setSena([...aux])
-  }, [])
-
+    aux = aux.sort( (a, b)=>{return a - b})
+    return aux
+  }
+  function handleClick(){
+    setSena([...geraSena()])
+  }
   function getRandomInt() {
     return Math.floor(Math.random() * Math.floor(61-1)+1 );
-
   } 
  
 
@@ -29,7 +35,7 @@ function App() {
             <h2 key={numero}>{numero}</h2>) 
           )}
         </div>
-        <a href="/">atualizar</a>
+        <a onClick={()=>handleClick()} >atualizar</a>
       </div>     
     </div>
   );
